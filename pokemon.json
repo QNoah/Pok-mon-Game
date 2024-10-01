@@ -1,0 +1,14 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "health": 5,
+            "attack": 2
+        },
+        {
+            "level": 2,
+            "health": 8,
+            "attack": 3
+        }
+    ]
+}
