@@ -1,5 +1,5 @@
 from pokemon import Pokemon
-from encounter import Encounter
+from encounter import Encounter_Pokemon
 import random
 import sys
 import time
@@ -14,8 +14,8 @@ def delay_print(s, delay=0.1):
 
 
 myPokemon = Pokemon(name = "Squirtle", lvl = 1)
-myPokemon.showPokemon()
-encounter = Encounter(1)
+# myPokemon.showPokemon()
+encounter = Encounter_Pokemon(2)
 
 turn = "player"
 def fight():
@@ -44,6 +44,9 @@ def fight():
                     if encounter.health <= 0:
                         delay_print(f'{encounter.name} fainted.')
                         delay_print(f'{myPokemon.name} wins!')
+                        delay_print(f'{myPokemon.name} has leveled up!')
+                        myPokemon.levelUp()
+                        delay_print(f'{myPokemon.name} is now lvl {myPokemon.lvl}')
                     else:
                         delay_print(f'{encounter.name} is at {encounter.health}HP')
                         time.sleep(1)
@@ -74,5 +77,5 @@ delay_print(f"A wild {encounter.name} has appeared!")
 delay_print(f"You chose {myPokemon.name}")
 fight()
 
-# myPokemon.levelUp()
+
 # myPokemon.showPokemon()

@@ -29,4 +29,3 @@ class Pokemon:
 
     def levelUp(self):
         self.lvl += 1
-    # def levelUp(self, name, level)

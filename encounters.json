@@ -6,6 +6,13 @@
             "lvl": 1,
             "health": 5,
             "attack": 2
+        },
+        {
+            "id": 2,
+            "name": "Bulbasaur",
+            "lvl": 2,
+            "health": 4,
+            "attack": 3
         }
     ]
 }

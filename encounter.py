@@ -1,6 +1,6 @@
 import json
 
-class Encounter:
+class Encounter_Pokemon:
     def __init__(self, id):
         self.id = id
         with open('encounters.json') as f:
@@ -12,7 +12,6 @@ class Encounter:
                     self.health = pokemon_details['health']
                     self.attack = pokemon_details['attack']
                 else:
-                    print(f"No pokemon found with id {self.id}")
                     self.name = None
                     self.lvl = None
                     self.health = None
