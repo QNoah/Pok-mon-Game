@@ -1,0 +1,11 @@
+{
+    "encounters": [
+        {
+            "id": 1,
+            "name": "Charmander",
+            "lvl": 1,
+            "health": 5,
+            "attack": 2
+        }
+    ]
+}

@@ -1,12 +1,12 @@
 {
     "levels": [
         {
-            "level": 1,
+            "lvl": 1,
             "health": 5,
             "attack": 2
         },
         {
-            "level": 2,
+            "lvl": 2,
             "health": 8,
             "attack": 3
         }

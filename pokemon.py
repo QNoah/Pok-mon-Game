@@ -6,28 +6,27 @@ class Pokemon:
     def __init__(self, name, lvl, id=None):
         self.id = id if id else self.generateId()
         self.name = name
+        with open('pokemon_lvl.json') as f:
+            data = json.load(f)
+            for level_info in data["levels"]:
+                if level_info["lvl"] == lvl:
+                    self.health = level_info["health"]
+                    self.attack = level_info["attack"]
         self.lvl = lvl
-        self.attack_damage = self.getAttackDamage(self.lvl)
 
-    
+
     def __repr__(self):
-        return f'Name: {self.name}, lvl: {self.lvl}'
+        return f' Id: {self.id}, Name: {self.name}, lvl: {self.lvl}'
 
 
     def generateId(self, length= 3):
         return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
-    
-    
-    def getAttackDamage(self, lvl):
-        with open('pokemon.json') as f:
-            data = json.load(f)
-            for level_info in data["levels"]:
-                if level_info["level"] == lvl:
-                    return level_info["attack"]
-            return 0
-    
-    
+
+
     def showPokemon(self):
         print(self)
-    
+
+
+    def levelUp(self):
+        self.lvl += 1
     # def levelUp(self, name, level)
