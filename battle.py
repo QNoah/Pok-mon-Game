@@ -6,7 +6,7 @@ import sys
 import time
 import os
 
-myPokemon = Pokemon(name = "Squirtle", lvl = 1)
+# myPokemon = Pokemon(name = "Squirtle", lvl = 1)
 
 def delay_print(s, delay=0.1):
     for c in s:
@@ -23,7 +23,7 @@ def delay_print(s, delay=0.1):
 #     return enemy
     
 
-def fight(id):
+def fight(id, myPokemon):
     turn = "player"
     enemy = Encounter_Pokemon(id)
     # global turn
