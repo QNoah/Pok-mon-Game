@@ -9,6 +9,11 @@
             "lvl": 2,
             "health": 8,
             "attack": 3
+        },
+        {  
+             "lvl": 3,
+            "health": 12,
+            "attack": 4
         }
     ]
 }

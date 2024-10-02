@@ -15,6 +15,31 @@
             "attack": 3
         },
         {   "id": 3,
-            "name": }
+            "name": "Froakie",
+            "lvl": 2,
+            "health": 2,
+            "attack": 5
+        },
+        {   
+            "id": 4,
+            "name": "Mudkip",
+            "lvl": 2,
+            "health": 6,
+            "attack": 1
+        },              
+        {   
+            "id": 5,
+            "name": "Vulpix",
+            "lvl": 3,
+            "health": 8,
+            "attack": 3
+        },  
+        {   
+            "id": 6,
+            "name": "Gloom",
+            "lvl": 3,
+            "health": 6,
+            "attack": 5
+        }                 
     ]
 }

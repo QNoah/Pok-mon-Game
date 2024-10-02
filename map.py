@@ -1,6 +1,8 @@
 import battle
 import random
 
+from pokemon import Pokemon
+
 board = [
     {"vakje": 1, "checkpoint": False, "power_up": None, "pokemon": None},
     {"vakje": 2, "checkpoint": False, "power_up": None, "pokemon": 1},
@@ -30,7 +32,9 @@ def check_vakje(vakje):
 
     if vakje['pokemon']:
         # battle.setEncounter(vakje['pokemon'])
+        print(f"Je staat op pokemon {vakje['pokemon']}")
         battle.fight(vakje['pokemon'])
+        
         # pass
         # hier moet de battle komen te staan
         # message += f" Je bent een {vakje['pokemon']} tegengekomen!"

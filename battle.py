@@ -16,20 +16,20 @@ def delay_print(s, delay=0.1):
     print() 
 
 
-# myPokemon.showPokemon()
-def setEncounter(id):
-    encounter = Encounter_Pokemon(id)
-    print(encounter)
-    return encounter
+# # myPokemon.showPokemon()
+# def setEncounter(id):
+#     enemy = Encounter_Pokemon(id)
+#     # print(encounter.name)
+#     return enemy
     
 
 turn = "player"
 def fight(id):
-    encounter = setEncounter(id)
+    enemy = Encounter_Pokemon(id)
     global turn
-    delay_print(f"A wild {encounter.name} has appeared!")
+    delay_print(f"A wild {enemy.name} has appeared!")
     delay_print(f"You chose {myPokemon.name}")
-    while myPokemon.health > 0 and encounter.health > 0:
+    while myPokemon.health > 0 and enemy.health > 0:
         if turn == "player":
             print("What is your next move?")
             print("1. Escape (Go back the steps you rolled.)")
@@ -47,24 +47,24 @@ def fight(id):
                     time.sleep(1)
                 else:
                     os.system("cls")
-                    delay_print(f'{myPokemon.name} did {damage} damage to {encounter.name}')
-                    encounter.health -= damage
+                    delay_print(f'{myPokemon.name} did {damage} damage to {enemy.name}')
+                    enemy.health -= damage
                     time.sleep(1)
-                    if encounter.health <= 0:
-                        delay_print(f'{encounter.name} fainted.')
+                    if enemy.health <= 0:
+                        delay_print(f'{enemy.name} fainted.')
                         delay_print(f'{myPokemon.name} wins!')
                         delay_print(f'{myPokemon.name} has leveled up!')
                         myPokemon.levelUp()
                         delay_print(f'{myPokemon.name} is now lvl {myPokemon.lvl}')
                     else:
-                        delay_print(f'{encounter.name} is at {encounter.health}HP')
+                        delay_print(f'{enemy.name} is at {enemy.health}HP')
                         time.sleep(1)
             elif _ == 3:
                 with open('inventory.json') as inv:
                     items = json.load(inv)
-                    for item in items:
-                        if item['stock'] != 0:
-                            print("You have ")
+                    for item in items['inventory']:
+                        if item['inventory']['potion'] != 0:
+                            print(f'You have {item["potion"]} potions')
                     if len(items) == 0:
                         print("You don't have any items in your inventory.")
                     elif True:
@@ -75,19 +75,19 @@ def fight(id):
                                 print(item)
                 turn = "cpu"
         elif turn == "cpu":
-            damage = random.randint(0, encounter.attack)
+            damage = random.randint(0, enemy.attack)
             if damage == 0:
                 os.system("cls")
-                delay_print(f'{encounter.name} missed the attack!')
+                delay_print(f'{enemy.name} missed the attack!')
                 time.sleep(1)
             else:
                 os.system("cls")
-                delay_print(f'{encounter.name} did {damage} damage to {myPokemon.name}')
+                delay_print(f'{enemy.name} did {damage} damage to {myPokemon.name}')
                 myPokemon.health -= damage
                 time.sleep(3)
                 if myPokemon.health <= 0:
                     delay_print(f'{myPokemon.name} fainted.')
-                    delay_print(f'{encounter.name} wins!')
+                    delay_print(f'{enemy.name} wins!')
                 else:
                     delay_print(f'{myPokemon.name} is at {myPokemon.health}HP')
                     time.sleep(1)
