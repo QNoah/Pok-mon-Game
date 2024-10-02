@@ -1,0 +1,15 @@
+{"storeStock" : [
+    {
+        "potions": {
+            "id": 1,
+            "stock": 2,
+            "cost": 2
+        },
+        
+        "dobbelsteen": {
+            "id": 2,
+            "stock": 1,
+            "cost": 4
+        }
+    }
+]}

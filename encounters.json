@@ -2,17 +2,19 @@
     "encounters": [
         {
             "id": 1,
-            "name": "Charmander",
+            "name": "Torchic",
             "lvl": 1,
             "health": 5,
             "attack": 2
         },
         {
             "id": 2,
-            "name": "Bulbasaur",
+            "name": "Treecko",
             "lvl": 2,
             "health": 4,
             "attack": 3
-        }
+        },
+        {   "id": 3,
+            "name": }
     ]
 }

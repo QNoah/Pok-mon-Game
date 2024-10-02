@@ -1,9 +1,12 @@
 from pokemon import Pokemon
 from encounter import Encounter_Pokemon
+import json
 import random
 import sys
 import time
 import os
+
+myPokemon = Pokemon(name = "Squirtle", lvl = 1)
 
 def delay_print(s, delay=0.1):
     for c in s:
@@ -13,13 +16,19 @@ def delay_print(s, delay=0.1):
     print() 
 
 
-myPokemon = Pokemon(name = "Squirtle", lvl = 1)
 # myPokemon.showPokemon()
-encounter = Encounter_Pokemon(2)
+def setEncounter(id):
+    encounter = Encounter_Pokemon(id)
+    print(encounter)
+    return encounter
+    
 
 turn = "player"
-def fight():
+def fight(id):
+    encounter = setEncounter(id)
     global turn
+    delay_print(f"A wild {encounter.name} has appeared!")
+    delay_print(f"You chose {myPokemon.name}")
     while myPokemon.health > 0 and encounter.health > 0:
         if turn == "player":
             print("What is your next move?")
@@ -50,8 +59,20 @@ def fight():
                     else:
                         delay_print(f'{encounter.name} is at {encounter.health}HP')
                         time.sleep(1)
-
-
+            elif _ == 3:
+                with open('inventory.json') as inv:
+                    items = json.load(inv)
+                    for item in items:
+                        if item['stock'] != 0:
+                            print("You have ")
+                    if len(items) == 0:
+                        print("You don't have any items in your inventory.")
+                    elif True:
+                        print("Choose an item: ")
+                        with open('inventory.json') as inv:
+                            items = json.load(inv)
+                            for item in items:
+                                print(item)
                 turn = "cpu"
         elif turn == "cpu":
             damage = random.randint(0, encounter.attack)
@@ -73,9 +94,7 @@ def fight():
             turn = "player"
 
 
-delay_print(f"A wild {encounter.name} has appeared!")
-delay_print(f"You chose {myPokemon.name}")
-fight()
+# fight()
 
 
 # myPokemon.showPokemon()

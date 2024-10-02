@@ -2,7 +2,8 @@
     "inventory": [
         {
             "potion": 1,
-            "coins": 5
+            "coins": 5,
+            "dobbelsteen": 1
             
         }
     ]
