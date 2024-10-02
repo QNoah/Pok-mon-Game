@@ -23,10 +23,10 @@ def delay_print(s, delay=0.1):
 #     return enemy
     
 
-turn = "player"
 def fight(id):
+    turn = "player"
     enemy = Encounter_Pokemon(id)
-    global turn
+    # global turn
     delay_print(f"A wild {enemy.name} has appeared!")
     delay_print(f"You chose {myPokemon.name}")
     while myPokemon.health > 0 and enemy.health > 0:
@@ -60,20 +60,23 @@ def fight(id):
                         delay_print(f'{enemy.name} is at {enemy.health}HP')
                         time.sleep(1)
             elif _ == 3:
+                print('hi')
                 with open('inventory.json') as inv:
                     items = json.load(inv)
                     for item in items['inventory']:
-                        if item['inventory']['potion'] != 0:
-                            print(f'You have {item["potion"]} potions')
-                    if len(items) == 0:
-                        print("You don't have any items in your inventory.")
-                    elif True:
-                        print("Choose an item: ")
-                        with open('inventory.json') as inv:
-                            items = json.load(inv)
-                            for item in items:
-                                print(item)
-                turn = "cpu"
+                        print(item)
+                        if item['potion'] != 0:
+                            print('if statemenbt is correct')
+                            #print(f'You have {item["potion"]} potions')
+                    # if len(items) == 0:
+                    #     print("You don't have any items in your inventory.")
+                    # elif True:
+                    #     print("Choose an item: ")
+                    #     with open('inventory.json') as inv:
+                    #         items = json.load(inv)
+                    #         for item in items:
+                    #             print(item)
+            turn = "cpu"
         elif turn == "cpu":
             damage = random.randint(0, enemy.attack)
             if damage == 0:
@@ -94,7 +97,7 @@ def fight(id):
             turn = "player"
 
 
-# fight()
+# fight(2)
 
 
 # myPokemon.showPokemon()

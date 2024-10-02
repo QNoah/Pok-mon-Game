@@ -31,13 +31,8 @@ def check_vakje(vakje):
             message += " Je kan met deze dobbelsteen maximaal 8 gooien in een gevecht!"
 
     if vakje['pokemon']:
-        # battle.setEncounter(vakje['pokemon'])
         print(f"Je staat op pokemon {vakje['pokemon']}")
         battle.fight(vakje['pokemon'])
-        
-        # pass
-        # hier moet de battle komen te staan
-        # message += f" Je bent een {vakje['pokemon']} tegengekomen!"
 
     if vakje['checkpoint']:
         message += " This is a checkpoint, your HP has been recovered!"

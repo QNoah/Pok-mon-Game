@@ -5,6 +5,6 @@ def buy(balance, id):
         print("You're broke")
     else:
         with open('store.json') as store:
-            storeItems = json.laod(store)
+            storeItems = json.load(store)
             for buyableItems in storeItems:
                 print(buyableItems)
