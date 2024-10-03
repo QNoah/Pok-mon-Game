@@ -17,3 +17,4 @@ class Encounter_Pokemon:
                     self.lvl = None
                     self.health = None
                     self.attack = None
+                    continue
