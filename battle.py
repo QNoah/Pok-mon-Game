@@ -6,7 +6,7 @@ import sys
 import time
 import os
 
-myPokemon = Pokemon(name = "Squirtle", lvl = 1)
+# myPokemon = Pokemon(name = "Squirtle", lvl = 1)
 
 def delay_print(s, delay=0.1):
     for c in s:
@@ -16,7 +16,14 @@ def delay_print(s, delay=0.1):
     print() 
 
 
-def fight(id):
+# # myPokemon.showPokemon()
+# def setEncounter(id):
+#     enemy = Encounter_Pokemon(id)
+#     # print(encounter.name)
+#     return enemy
+    
+
+def fight(id, myPokemon):
     os.system("cls")
     turn = "player"
     enemy = Encounter_Pokemon(id)

@@ -3,8 +3,9 @@ import random
 import json
 
 class Pokemon:
-    def __init__(self, name, lvl, id=None):
-        self.id = id if id else self.generateId()
+    def __init__(self, id, name, lvl):
+        self.id = id
+        # self.id = id if id else self.generateId()
         self.name = name
         with open('pokemon_lvl.json') as f:
             data = json.load(f)
