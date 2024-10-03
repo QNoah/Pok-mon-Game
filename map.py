@@ -1,6 +1,6 @@
 import battle
 import random
-
+import os
 from pokemon import Pokemon
 
 board = [
@@ -20,6 +20,7 @@ def roll_dice(max_value=3):
     return random.randint(1, max_value)
 
 def check_vakje(vakje):
+    os.system("cls")
     message = f"Je staat op {vakje['vakje']}."
 
     if vakje['power_up']:
@@ -35,7 +36,7 @@ def check_vakje(vakje):
         battle.fight(vakje['pokemon'])
 
     if vakje['checkpoint']:
-        message += " This is a checkpoint, your HP has been recovered!"
+        message += "This is a checkpoint, your HP has been recovered!"
 
     return message
 
@@ -44,7 +45,7 @@ current_hp = 20
 MAX_HP = 20
 
 while current_position < 10:
-    print(f"\You are at position{current_position} with {current_hp} HP.")
+    print(f"You are at position{current_position} with {current_hp} HP.")
 
     input("Press enter to roll...")
 

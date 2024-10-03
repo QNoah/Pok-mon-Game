@@ -16,14 +16,8 @@ def delay_print(s, delay=0.1):
     print() 
 
 
-# # myPokemon.showPokemon()
-# def setEncounter(id):
-#     enemy = Encounter_Pokemon(id)
-#     # print(encounter.name)
-#     return enemy
-    
-
 def fight(id):
+    os.system("cls")
     turn = "player"
     enemy = Encounter_Pokemon(id)
     # global turn
@@ -60,13 +54,19 @@ def fight(id):
                         delay_print(f'{enemy.name} is at {enemy.health}HP')
                         time.sleep(1)
             elif _ == 3:
-                print('hi')
-                with open('inventory.json') as inv:
-                    items = json.load(inv)
-                    for item in items['inventory']:
-                        print(item)
-                        if item['potion'] != 0:
-                            print('if statemenbt is correct')
+                os.system("cls")
+                item_not_selected = True
+                while item_not_selected:
+                    with open('inventory.json') as inv:
+                        items = json.load(inv)
+                        for item in items['inventory']:
+                            print(f"Option: {item['id']}, item: {item['name']}, qty: {item['qty']}")
+                        time.sleep(1)
+                        delay_print('Choose your item:')
+                        try:
+                            item_choice = int(input())
+                        except ValueError:
+                            print("Wrong input")
                             #print(f'You have {item["potion"]} potions')
                     # if len(items) == 0:
                     #     print("You don't have any items in your inventory.")
@@ -76,6 +76,7 @@ def fight(id):
                     #         items = json.load(inv)
                     #         for item in items:
                     #             print(item)
+                    
             turn = "cpu"
         elif turn == "cpu":
             damage = random.randint(0, enemy.attack)

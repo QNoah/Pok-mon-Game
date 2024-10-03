@@ -14,6 +14,16 @@
              "lvl": 3,
             "health": 12,
             "attack": 4
+        },
+        {  
+             "lvl": 4,
+            "health": 17,
+            "attack": 6
+        },
+        {  
+             "lvl": 5,
+            "health": 28,
+            "attack": 9
         }
     ]
 }

@@ -1,10 +1,19 @@
 {
-    "inventory": [
-        {
-            "potion": 1,
-            "coins": 5,
-            "dobbelsteen": 1
-            
-        }
-    ]
+  "inventory": [
+    {
+      "id": 1,
+      "name": "healing_potion",
+      "qty": 1
+    },
+    {
+        "id": 2,
+      "name": "coins",
+      "qty": 5
+    },
+    {
+      "id": 3,
+      "name": "dice_8",
+      "qty": 0
+    }
+  ]
 }
