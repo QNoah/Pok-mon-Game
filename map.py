@@ -52,25 +52,25 @@ def chooseStarter():
     while True:
         try:
             starter = int(input())
-            break
         except ValueError:
             print("That is not a valid option")
-    
-    if starter == 1:
-        myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1)
-        return myPokemon.name
-    elif starter == 2:
-        myPokemon = Pokemon(id = 2, name = "Squirtle", lvl = 1)
-        return myPokemon.name        
-    elif starter == 3:
-        myPokemon = Pokemon(id = 3,name = "Bulbasaur", lvl = 1)
-        return myPokemon.name
-    else:
-        os.system("cls")
-        print("As far as I know there is no other pokemon here.")
-        chooseStarter()
-    playSound("select")    
-    os.system("cls")
+
+        if starter == 1:
+            myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1)
+            playSound("select")
+            return myPokemon.name
+        elif starter == 2:
+            myPokemon = Pokemon(id = 2, name = "Squirtle", lvl = 1)
+            playSound("select")
+            return myPokemon.name        
+        elif starter == 3:
+            myPokemon = Pokemon(id = 3,name = "Bulbasaur", lvl = 1)
+            playSound("select")
+            return myPokemon.name
+        else:
+            print("As far as I know there is no other pokemon here.")
+            # chooseStarter()
+        
 
 def roll_dice(max_value=3):
     return random.randint(1, max_value)
@@ -158,7 +158,8 @@ input()
 pygame.mixer.music.pause()
 playSound("obtain_item")
 print("Professor Oak gave you 5 coins")
-playSound("obtain_item"), input("Professor Oak gave you a healing potion")
+input(), print("Professor Oak gave you a healing potion")
+playSound("obtain_item")
 time.sleep(3)
 pygame.mixer.music.unpause()
 input()
@@ -166,7 +167,6 @@ delayPrint("""
 Professor Oak:
 Alright then... I'll see you at the end..""")
 input()
-# start_theme.stop()
 
 pygame.mixer.music.load("./music/adventure_theme.mp3")
 pygame.mixer.music.play(loops= -1)
@@ -175,7 +175,9 @@ current_position = 1
 current_hp = myPokemon.health
 # Dit hieronder veranderen naar een function die de level ophaalt en dan weet wat de max hp is
 MAX_HP = 20
+# MAX_HP = gethealth()
 
+os.system("cls")
 while current_position < 10:
     print(f"You are at position {current_position} with {myPokemon.health} HP.")
     print("1. View inventory\n2. Roll")
