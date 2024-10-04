@@ -1,3 +1,4 @@
+import pygame
 import battle
 import random
 import os
@@ -6,19 +7,23 @@ import time
 from pokemon import Pokemon
 
 board = [
-    {"vakje": 1, "checkpoint": False, "power_up": None, "pokemon": None},
-    {"vakje": 2, "checkpoint": False, "power_up": None, "pokemon": 1},
-    {"vakje": 3, "checkpoint": False, "power_up": "level_up", "pokemon": None},
-    {"vakje": 4, "checkpoint": False, "power_up": None, "pokemon": None},
-    {"vakje": 5, "checkpoint": False, "power_up": None, "pokemon": 2},
-    {"vakje": 6, "checkpoint": False, "power_up": "heal", "pokemon": None},
-    {"vakje": 7, "checkpoint": True, "power_up": None, "pokemon": None},
-    {"vakje": 8, "checkpoint": False, "power_up": None, "pokemon": 3},
-    {"vakje": 9, "checkpoint": False, "power_up": "big_dice", "pokemon": None},
-    {"vakje": 10, "checkpoint": False, "power_up": None, "pokemon": None}
+    {"field": 1, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 2, "checkpoint": False, "power_up": None, "pokemon": 1},
+    {"field": 3, "checkpoint": False, "power_up": "level_up", "pokemon": None},
+    {"field": 4, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 5, "checkpoint": False, "power_up": None, "pokemon": 2},
+    {"field": 6, "checkpoint": False, "power_up": "heal", "pokemon": None},
+    {"field": 7, "checkpoint": True, "power_up": None, "pokemon": None},
+    {"field": 8, "checkpoint": False, "power_up": None, "pokemon": 3},
+    {"field": 9, "checkpoint": False, "power_up": "big_dice", "pokemon": None},
+    {"field": 10, "checkpoint": False, "power_up": None, "pokemon": None}
 ]
+def playSound(sound):
+    effectSound = pygame.mixer.Sound(f"./music/sounds/{sound}.mp3")
+    effectSound.play()
 
-def delayPrint(s, delay=0.1):
+
+def delayPrint(s, delay=0.05):
     for c in s:
         sys.stdout.write(c)
         sys.stdout.flush()
@@ -48,63 +53,75 @@ def chooseStarter():
         os.system("cls")
         print("As far as I know there is no other pokemon here.")
         chooseStarter()
+    playSound("select")    
+    os.system("cls")
 
 def roll_dice(max_value=3):
     return random.randint(1, max_value)
 
-def check_vakje(vakje):
-    os.system("cls")
-    message = f"Je staat op {vakje['vakje']}."
 
-    if vakje['power_up']:
-        if vakje['power_up'] == "heal":
+def check_field(field):
+    os.system("cls")
+    message = f"Je staat op {field['field']}."
+
+    if field['power_up']:
+        if field['power_up'] == "heal":
             message += "Je ontvangt hier een heal power-up!"
-        elif vakje['power_up'] == "level_up":
+        elif field['power_up'] == "level_up":
             message += "Je ontvangt hier een level up!"
-        elif vakje['power_up'] == "big_dice":
+        elif field['power_up'] == "big_dice":
             message += "Je kan met deze dobbelsteen maximaal 8 gooien in een gevecht!"
 
-    if vakje['pokemon']:
-        battle.fight(vakje['pokemon'], myPokemon)
+    if field['pokemon']:
+        battle.fight(field['pokemon'], myPokemon)
 
-    if vakje['checkpoint']:
+    if field['checkpoint']:
         message += "This is a checkpoint, your HP has been recovered!"
 
     return message
 
-current_position = 1
-current_hp = 20
-MAX_HP = 20
 
 delayPrint("Welcome to the world of Pokemon, choose your pokemon! \n")
 chooseStarter()
 
+current_position = 1
+current_hp = myPokemon.health
+# Dit hieronder veranderen naar een function die de level ophaalt en dan weet wat de max hp is
+MAX_HP = 20
+
 while current_position < 10:
     print(f"You are at position {current_position} with {myPokemon.health} HP.")
-
-    input("Press enter to roll...")
+    print("1. View inventory\n2. Roll")
+    while True:
+        try:
+            option = int(input("Choose an option:"))
+            break
+        except ValueError:
+            print("Not a valid option")
+            continue
+        
     os.system("cls")
+    if option == 1:
+        pass
+    elif option == 2:
+        previous_position = current_position
+        dice_roll = roll_dice()
+        playSound("dice_roll")
+        print(f"You rolled {dice_roll}.")
+        time.sleep(1)
+        current_position += dice_roll
+        if current_position > 10:
+            current_position = 10
+        elif previous_position < 7 <= current_position:
+            current_hp = MAX_HP
+            print("You have passed or you are at a checkpoint. Your health has regenerated.")
 
-    previous_position = current_position
+    current_field = board[current_position - 1]
 
-    dice_roll = roll_dice()
-    print(f"You rolled {dice_roll}.")
+    field_boodschap = check_field(current_field)
+    print(field_boodschap)
 
-    current_position += dice_roll
-
-    if current_position > 10:
-        current_position = 10
-
-    if previous_position < 7 <= current_position:
-        current_hp = MAX_HP
-        print("You have passed or you are at a checkpoint. Your health has regenerated.")
-
-    current_vakje = board[current_position - 1]
-
-    vakje_boodschap = check_vakje(current_vakje)
-    print(vakje_boodschap)
-
-    if current_vakje['checkpoint']:
+    if current_field['checkpoint']:
         current_hp = MAX_HP
         print("Your HP has been fully regenerated.")
 
