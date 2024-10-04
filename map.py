@@ -18,6 +18,10 @@ board = [
     {"field": 9, "checkpoint": False, "power_up": "big_dice", "pokemon": None},
     {"field": 10, "checkpoint": False, "power_up": None, "pokemon": None}
 ]
+
+start_theme = pygame.mixer.Sound("./music/start_theme.mp3")
+start_theme.set_volume(.1)
+
 def playSound(sound):
     effectSound = pygame.mixer.Sound(f"./music/sounds/{sound}.mp3")
     effectSound.play()
@@ -32,9 +36,12 @@ def delayPrint(s, delay=0.05):
 
 def chooseStarter():
     global myPokemon
-    print("1. Charmander")
-    print("2. Squirtle")
-    print("3. Bulbasaur")
+    print("""
+    Choose your pokemon:
+    1. Charmander
+    2. Squirtle
+    3. Bulbasaur
+    """)
 
     while True:
         try:
@@ -45,10 +52,13 @@ def chooseStarter():
     
     if starter == 1:
         myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1)
+        return myPokemon.name
     elif starter == 2:
         myPokemon = Pokemon(id = 2, name = "Squirtle", lvl = 1)
+        return myPokemon.name        
     elif starter == 3:
         myPokemon = Pokemon(id = 3,name = "Bulbasaur", lvl = 1)
+        return myPokemon.name
     else:
         os.system("cls")
         print("As far as I know there is no other pokemon here.")
@@ -80,9 +90,31 @@ def check_field(field):
 
     return message
 
+start_theme.play(loops=-1)
+delayPrint("""
+Professor Oak: Ahhh... the smell of Pokemon, the best there could be!
+Professor Oak: Welcome to the world of PokePython!
+Professor Oak: There are waiting a lot of People, Pokemon, and lots of
+                other different things for you. That means there are quite some things to experience!
+Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
+""")
+namePokemon = chooseStarter()
+delayPrint(f"""
+Professor Oak: Are you sure you want to choose {namePokemon} (y/n)""")
+while True:
+    pokemon_confirm = input().lower()
+    if pokemon_confirm == "y":
+        break
+    elif pokemon_confirm == "n":
+        namePokemon = chooseStarter()
+        delayPrint(f"""
+Professor Oak: Are you sure you want to choose {namePokemon} (y/n)""")
+        continue
+    else:
+        delayPrint("""
+Professor Oak: I don't understand Pokemon language, but are you sure? (y/n)
+""")
 
-delayPrint("Welcome to the world of Pokemon, choose your pokemon! \n")
-chooseStarter()
 
 current_position = 1
 current_hp = myPokemon.health
