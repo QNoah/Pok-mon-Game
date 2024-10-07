@@ -55,12 +55,10 @@ def Store(balance):
                             if items['name'] == buyableItems['name']:
                                 items['qty'] += 1
                                 buyableItems['stock'] -= 1
-                                break
                             if items['id'] == 2:
                                 items['qty'] -= buyableItems['cost']
                                 delayPrint(f'Your current balance is {items["qty"]}')
                                 print()
-                                break
                 
 
                         
