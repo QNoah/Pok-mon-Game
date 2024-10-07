@@ -4,13 +4,15 @@ import random
 import os
 import sys
 import time
+import json
 from pokemon import Pokemon
+from store import Store
 
 board = [
     {"field": 1, "checkpoint": False, "power_up": None, "pokemon": None},
     {"field": 2, "checkpoint": False, "power_up": None, "pokemon": 1},
     {"field": 3, "checkpoint": False, "power_up": "level_up", "pokemon": None},
-    {"field": 4, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 4, "checkpoint": False, "power_up": "merchant", "pokemon": None},
     {"field": 5, "checkpoint": False, "power_up": None, "pokemon": 2},
     {"field": 6, "checkpoint": False, "power_up": "heal", "pokemon": None},
     {"field": 7, "checkpoint": True, "power_up": None, "pokemon": None},
@@ -87,6 +89,13 @@ def check_field(field):
             message += "Je ontvangt hier een level up!"
         elif field['power_up'] == "big_dice":
             message += "Je kan met deze dobbelsteen maximaal 8 gooien in een gevecht!"
+        elif field['power_up'] == 'merchant':
+            with open('inventory.json') as invi:
+                inv = json.load(invi)
+            for itemsinInventory in inv["inventory"]:
+                if itemsinInventory['id'] == 2:
+                    Store(itemsinInventory['qty'])
+
 
     if field['pokemon']:
         pygame.mixer.music.pause()
@@ -107,12 +116,13 @@ Professor Oak:
 Welcome to the world of PokePython!
 
 Professor Oak: 
-There are waiting lots of People, Pokemon, and other different things for you.
+There are lots of People waiting, Pokemon, and other different things for you.
 That means there are quite some things to experience!
 
 Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
 """)
 namePokemon = chooseStarter()
+
 delayPrint(f"""
 Professor Oak:
 Are you sure you want to choose {namePokemon}? (y/n)""")
@@ -204,6 +214,8 @@ while current_position < 10:
         elif previous_position < 7 <= current_position:
             current_hp = MAX_HP
             print("You have passed or you are at a checkpoint. Your health has regenerated.")
+    elif option == 3:
+        current_position += 3
 
     current_field = board[current_position - 1]
 

@@ -39,7 +39,7 @@ def fight(id, myPokemon):
             print("What is your next move?")
             print("1. Escape (Go back the steps you rolled.)")
             print(f"2. Fight (roll 0 > {myPokemon.attack})")
-            print(f"3. Use a item")
+            print(f"3. Use a item (work in project)")
             while True:
                 try:
                     _ = int(input())
@@ -108,15 +108,23 @@ def fight(id, myPokemon):
                             item_choice = int(input())
                         except ValueError:
                             print("Wrong input")
-                            #print(f'You have {item["potion"]} potions')
-                    # if len(items) == 0:
-                    #     print("You don't have any items in your inventory.")
-                    # elif True:
-                    #     print("Choose an item: ")
-                    #     with open('inventory.json') as inv:
-                    #         items = json.load(inv)
-                    #         for item in items:
-                    #             print(item)
+                    for item in items['inventory']:
+                        if item['id'] == item_choice and item['qty'] > 0 and item['id'] != 2:
+                            item['qty'] -= 1
+                            delay_print(f'You used {item["name"]}')
+                            if item['id'] == 1:
+                                #hp increase
+                                pass
+                            if item['id'] == 3:
+                                pass
+                                # roll another dice?
+                            if item['id'] == 4:
+                                pass
+                                # ability does 2x damage
+                       #3w elif  
+                            
+                            
+                        
                     
             turn = "cpu"
         elif turn == "cpu":
