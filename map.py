@@ -108,75 +108,76 @@ def check_field(field):
 
 pygame.mixer.music.load("./music/start_theme.mp3")
 pygame.mixer.music.play(loops= -1)
-delayPrint("""
-Professor Oak: 
-Ahhh... the smell of Pokemon, the best there could be!
+chooseStarter()
+# delayPrint("""
+# Professor Oak: 
+# Ahhh... the smell of Pokemon, the best there could be!
 
-Professor Oak: 
-Welcome to the world of PokePython!
+# Professor Oak: 
+# Welcome to the world of PokePython!
 
-Professor Oak: 
-There are lots of People waiting, Pokemon, and other different things for you.
-That means there are quite some things to experience!
+# Professor Oak: 
+# There are lots of People waiting, Pokemon, and other different things for you.
+# That means there are quite some things to experience!
 
-Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
-""")
-namePokemon = chooseStarter()
+# Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
+# """)
+# namePokemon = chooseStarter()
 
-delayPrint(f"""
-Professor Oak:
-Are you sure you want to choose {namePokemon}? (y/n)""")
-while True:
-    pokemon_confirm = input().lower()
-    if pokemon_confirm == "y":
-        break
-    elif pokemon_confirm == "n":
-        namePokemon = chooseStarter()
-        delayPrint(f"""
-Professor Oak:
-Are you sure you want to choose {namePokemon}? (y/n)""")
-        continue
-    else:
-        delayPrint(f"""
-Professor Oak:
-I understand how most Pokemon behave, but I don't understand their language.
-are you sure you want to choose {namePokemon}? (y/n)
-""")
+# delayPrint(f"""
+# Professor Oak:
+# Are you sure you want to choose {namePokemon}? (y/n)""")
+# while True:
+#     pokemon_confirm = input().lower()
+#     if pokemon_confirm == "y":
+#         break
+#     elif pokemon_confirm == "n":
+#         namePokemon = chooseStarter()
+#         delayPrint(f"""
+# Professor Oak:
+# Are you sure you want to choose {namePokemon}? (y/n)""")
+#         continue
+#     else:
+#         delayPrint(f"""
+# Professor Oak:
+# I understand how most Pokemon behave, but I don't understand their language.
+# are you sure you want to choose {namePokemon}? (y/n)
+# """)
 
-delayPrint(f"""
-Professor Oak:
-Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
-""")
+# delayPrint(f"""
+# Professor Oak:
+# Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
+# """)
 
-time.sleep(2)
-delayPrint(""""
-Professor Oak: 
-But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
-But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
-Here they will fight you and it is your choice to fight them to level up your Pokemon, or to run away and go back
-to your safe spot. (your pokemon would still be hurt if it has taken damage)
-""")
+# time.sleep(2)
+# delayPrint(""""
+# Professor Oak: 
+# But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
+# But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
+# Here they will fight you and it is your choice to fight them to level up your Pokemon, or to run away and go back
+# to your safe spot. (your pokemon would still be hurt if it has taken damage)
+# """)
 
-input()
-delayPrint("""
-Professor Oak:
-There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
-It can be hard to go through the first few steps so here take this use these items well..
-""")
+# input()
+# delayPrint("""
+# Professor Oak:
+# There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
+# It can be hard to go through the first few steps so here take this use these items well..
+# """)
 
-input()
-pygame.mixer.music.pause()
-playSound("obtain_item")
-print("Professor Oak gave you 5 coins")
-input(), print("Professor Oak gave you a healing potion")
-playSound("obtain_item")
-time.sleep(3)
-pygame.mixer.music.unpause()
-input()
-delayPrint("""
-Professor Oak:
-Alright then... I'll see you at the end..""")
-input()
+# input()
+# pygame.mixer.music.pause()
+# playSound("obtain_item")
+# print("Professor Oak gave you 5 coins")
+# input(), print("Professor Oak gave you a healing potion")
+# playSound("obtain_item")
+# time.sleep(3)
+# pygame.mixer.music.unpause()
+# input()
+# delayPrint("""
+# Professor Oak:
+# Alright then... I'll see you at the end..""")
+# input()
 
 pygame.mixer.music.load("./music/adventure_theme.mp3")
 pygame.mixer.music.play(loops= -1)

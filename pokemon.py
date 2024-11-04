@@ -13,6 +13,7 @@ class Pokemon:
                 if level_info["lvl"] == lvl:
                     self.health = level_info["health"]
                     self.attack = level_info["attack"]
+        # hallo
         self.lvl = lvl
 
 
