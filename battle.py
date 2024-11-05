@@ -27,7 +27,8 @@ def delay_print(s, delay=0.08):
     print()
 
 
-def attacks():
+def attacks(myPokemon):
+    os.system("cls")
     print("""
 1. Tackle
 2. Ember
@@ -37,12 +38,15 @@ def attacks():
     attack = input().strip()
     while True:
         if attack == "1":
+            # We must figure something out for here that the name will be dynamic, damage and the weakness/strong
+            # myPokemon.attack(1)
             print("Used Tackle")
-            return
+            return "cpu"
         elif attack == "2":
             print("Used Ember")
             return "cpu"
         elif attack == "back":
+            os.system("cls")
             return "back" 
 
 
@@ -76,7 +80,7 @@ def battle_menu(turn, enemy, myPokemon):
                     ...
                     # lose()
                 elif _ == 2:
-                    if attacks() == "back":
+                    if attacks(myPokemon) == "back":
                         battle_menu(turn, enemy, myPokemon)
                     else:
                         if enemy.health <= 0:
