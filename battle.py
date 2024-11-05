@@ -40,14 +40,20 @@ def attacks(myPokemon):
         if attack == "1":
             # We must figure something out for here that the name will be dynamic, damage and the weakness/strong
             # myPokemon.attack(1)
+            os.system("cls")
             print("Used Tackle")
             return "cpu"
         elif attack == "2":
+            os.system("cls")
             print("Used Ember")
             return "cpu"
         elif attack == "back":
             os.system("cls")
-            return "back" 
+            return "back"
+        else:
+            print("That is not a valid option.")
+            attack = input().strip()
+            continue
 
 
 def fight(id, myPokemon):
