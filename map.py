@@ -11,14 +11,73 @@ from store import Store
 board = [
     {"field": 1, "checkpoint": False, "power_up": None, "pokemon": None},
     {"field": 2, "checkpoint": False, "power_up": None, "pokemon": 1},
-    {"field": 3, "checkpoint": False, "power_up": "level_up", "pokemon": None},
-    {"field": 4, "checkpoint": False, "power_up": "merchant", "pokemon": None},
+    {"field": 3, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 4, "checkpoint": False, "power_up": "Merchant", "pokemon": None},
+    #shop
     {"field": 5, "checkpoint": False, "power_up": None, "pokemon": 2},
-    {"field": 6, "checkpoint": False, "power_up": "heal", "pokemon": None},
-    {"field": 7, "checkpoint": True, "power_up": None, "pokemon": None},
+    {"field": 6, "checkpoint": False, "power_up": "Health Potion", "pokemon": None},
+    #healt 50% HP 
+    {"field": 7, "checkpoint": False, "power_up": None, "pokemon": None},
     {"field": 8, "checkpoint": False, "power_up": None, "pokemon": 3},
-    {"field": 9, "checkpoint": False, "power_up": "big_dice", "pokemon": None},
-    {"field": 10, "checkpoint": False, "power_up": None, "pokemon": None}
+    {"field": 9, "checkpoint": False, "power_up": " Big_dice", "pokemon": None},
+    #dobbelsteen met 8 of 9 ogen
+    {"field": 10, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 11, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 12, "checkpoint": False, "power_up": None, "pokemon": 4},
+    {"field": 13, "checkpoint": False, "power_up": "Damage potion", "pokemon": None},
+    #multiplied damage 2x voor 1
+    {"field": 14, "checkpoint": False, "power_up": "Merchant", "pokemon": None},
+    #shop
+    {"field": 15, "checkpoint": False, "power_up": None, "pokemon": 5},
+    {"field": 16, "checkpoint": False, "power_up": "HyperPotion", "pokemon": None},
+    #Healt 75% HP
+    {"field": 17, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 18, "checkpoint": False, "power_up": None, "pokemon": 6},
+    {"field": 19, "checkpoint": False, "power_up": "Mini-Shield", "pokemon": None},
+    #blokkeert 25 damage 
+    {"field": 20, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 21, "checkpoint": False, "power_up": "Amulet Coin", "pokemon": None},
+    #verdubbelt aantal coins na 1 gevecht
+    {"field": 22, "checkpoint": False, "power_up": None, "pokemon": 7},
+    {"field": 23, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 24, "checkpoint": False, "power_up": "Merchant", "pokemon": None},
+    #Shop
+    {"field": 25, "checkpoint": False, "power_up": None, "pokemon": 8},
+    {"field": 26, "checkpoint": False, "power_up": "HyperPotion", "pokemon": None},
+    #healt 75% HP
+    {"field": 27, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 28, "checkpoint": False, "power_up": None, "pokemon": 9},
+    {"field": 29, "checkpoint": False, "power_up": "big_dice", "pokemon": None},
+    #dobbelsteen met 8 of 9 ogen
+    {"field": 30, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 31, "checkpoint": False, "power_up": "Max Potion", "pokemon": None},
+    #restored alle HP
+    {"field": 32, "checkpoint": False, "power_up": None, "pokemon": 10},
+    {"field": 33, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 34, "checkpoint": False, "power_up": "Merchant", "pokemon": None},
+    #shop
+    {"field": 35, "checkpoint": False, "power_up": None, "pokemon": 11},
+    {"field": 36, "checkpoint": False, "power_up": "Big Shield", "pokemon": None},
+    #blokeert 50 damage
+    {"field": 37, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 38, "checkpoint": False, "power_up": None, "pokemon": 12},
+    {"field": 39, "checkpoint": False, "power_up": "Amulet Coin", "pokemon": None},
+    #verdubbelt Coins na gevecht
+    {"field": 40, "checkpoint": False, "power_up": None, "pokemon": 13},
+    {"field": 41, "checkpoint": False, "power_up": "Damage Potion", "pokemon": None},
+    #verdubbelt damage voor 1 attack
+    {"field": 42, "checkpoint": False, "power_up": None, "pokemon": 14},
+    {"field": 43, "checkpoint": False, "power_up": "Paralyze Potion", "pokemon": None},
+    #als je Paralyze potion op enemy gooit kan hij 1 keer geen attack gooien
+    {"field": 44, "checkpoint": False, "power_up": "Merchant", "pokemon": None},
+    {"field": 45, "checkpoint": False, "power_up": None, "pokemon": 15},
+    {"field": 46, "checkpoint": False, "power_up": "HyperPotion", "pokemon": None},
+    #restored 75% HP
+    {"field": 47, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 48, "checkpoint": False, "power_up": None, "pokemon": 16},
+    {"field": 49, "checkpoint": False, "power_up": "Max Potion", "pokemon": None},
+    #restored alle HP
+    {"field": 50, "checkpoint": False, "power_up": None, "pokemon": None}
 ]
 
 pygame.mixer.music.set_volume(.1)
@@ -74,7 +133,7 @@ def chooseStarter():
             # chooseStarter()
         
 
-def roll_dice(max_value=3):
+def roll_dice(max_value=5):
     return random.randint(1, max_value)
 
 
@@ -83,13 +142,21 @@ def check_field(field):
     message = f"Je staat op {field['field']}."
 
     if field['power_up']:
-        if field['power_up'] == "heal":
-            message += "Je ontvangt hier een heal power-up!"
-        elif field['power_up'] == "level_up":
-            message += "Je ontvangt hier een level up!"
+        if field['power_up'] == "Health Potion":
+            message += "Je ontvangt hier een Health Potion power-up!"
+        elif field['power_up'] == "Amulet Coin":
+            message += "Je ontvangt hier een Amulet coin!"
+        elif field['power_up'] == "Damage Potion":
+            message += "Je ontvangt hier Damage Potion!"
+        elif field['power_up'] == "HyperPotion":
+            message += "Je ontvangt hier een HyperPotion!"
+        elif field['power_up'] == "Max Potion":
+            message += "Je ontvangt hier een Max Potion!"
         elif field['power_up'] == "big_dice":
-            message += "Je kan met deze dobbelsteen maximaal 8 gooien in een gevecht!"
-        elif field['power_up'] == 'merchant':
+            message += "Je kan met deze dobbelsteen maximaal 9 gooien in een gevecht!"
+        elif field['power_up'] == "Paralyze Potion":
+            message += "Je ontvangt hier een Paralyze Potion!"
+        elif field['power_up'] == 'Merchant':
             with open('inventory.json') as invi:
                 inv = json.load(invi)
             for itemsinInventory in inv["inventory"]:
@@ -189,7 +256,7 @@ MAX_HP = 20
 # MAX_HP = gethealth()
 
 os.system("cls")
-while current_position < 10:
+while current_position < 50:
     print(f"You are at position {current_position} with {myPokemon.health} HP.")
     print("1. View inventory\n2. Roll")
     while True:

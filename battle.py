@@ -8,7 +8,7 @@ import time
 import os
 
 pygame.mixer.init()
-# test
+# tes
 battleSong = pygame.mixer.Sound("./music/battle_theme.mp3")
 victorySong = pygame.mixer.Sound("./music/Victory_Theme.mp3")
 battleSong.set_volume(.3)
