@@ -4,42 +4,113 @@
             "id": 1,
             "name": "Torchic",
             "lvl": 1,
-            "health": 5,
-            "attack": 2
+            "health": 15,
+            "attack": 3
         },
         {
             "id": 2,
             "name": "Treecko",
-            "lvl": 2,
-            "health": 4,
-            "attack": 3
+            "lvl": 1,
+            "health": 14,
+            "attack": 4
         },
-        {   "id": 3,
+        {
+            "id": 3,
             "name": "Froakie",
             "lvl": 2,
-            "health": 2,
-            "attack": 5
+            "health": 18,
+            "attack": 6
         },
-        {   
+        {
             "id": 4,
             "name": "Mudkip",
             "lvl": 2,
-            "health": 6,
-            "attack": 1
-        },              
-        {   
+            "health": 20,
+            "attack": 4
+        },
+        {
             "id": 5,
             "name": "Vulpix",
             "lvl": 3,
-            "health": 8,
-            "attack": 3
-        },  
-        {   
+            "health": 21,
+            "attack": 8
+        },
+        {
             "id": 6,
             "name": "Gloom",
             "lvl": 3,
-            "health": 6,
+            "health": 26,
             "attack": 5
-        }                 
+        },
+        {
+            "id": 7,
+            "name": "Eevee",
+            "lvl": 4,
+            "health": 40,
+            "attack": 10
+        },
+        {
+            "id": 8,
+            "name": "Pidgeotto",
+            "lvl": 4,
+            "health": 30,
+            "attack": 15
+        },
+        {
+            "id": 9,
+            "name": "Jigglypuff",
+            "lvl": 5,
+            "health": 50,
+            "attack": 9
+        },
+        {
+            "id": 10,
+            "name": "Psyduck",
+            "lvl": 5,
+            "health": 80,
+            "attack": 6
+        },
+        {
+            "id": 11,
+            "name": "Dratini",
+            "lvl": 6,
+            "health": 80,
+            "attack": 35
+        },
+        {
+            "id": 12,
+            "name": "Zubat",
+            "lvl": 6,
+            "health": 76,
+            "attack": 27
+        },
+        {
+            "id": 13,
+            "name": "Growlithe",
+            "lvl": 7,
+            "health": 110,
+            "attack": 31
+        },
+        {
+            "id": 14,
+            "name": "Poliwag",
+            "lvl": 8,
+            "health": 130,
+            "attack": 37
+        },
+        {
+            "id": 15,
+            "name": "Meowth",
+            "lvl": 8,
+            "health": 170,
+            "attack": 20
+        },
+        {
+            "id": 16,
+            "name": "Mewtwo",
+            "lvl": 8,
+            "health": 190,
+            "attack": 45
+        }
     ]
 }
