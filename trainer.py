@@ -33,8 +33,14 @@ class trainerProfile:
                         while True:
                             try:
                                 _ = int(input().strip())
+                                selected_pokemon = next((p['name'] for p in self.party['party'] if p['id'] == _), None)
                                 if _ == 1:
-                                    print("hello world")
+                                    user_input = input(f"Are you sure you want to replace {selected_pokemon} with dodo?")
+                                    if user_input.lower() == "y":
+                                        print(f"Replaced {selected_pokemon} with dodo")
+                                        return self.party
+                                    elif user_input.lower() == "n":
+                                        break
                                 elif _ == 2:
                                     print("hello world")
                                 elif _ == 3:
