@@ -5,112 +5,128 @@
             "name": "Torchic",
             "lvl": 1,
             "health": 15,
-            "attack": 3
+            "attack": 3,
+            "special_attack": "Hot Wings"
         },
         {
             "id": 2,
             "name": "Treecko",
             "lvl": 1,
             "health": 14,
-            "attack": 4
+            "attack": 4,
+            "special_attack": "Leaf Slap"
         },
         {
             "id": 3,
             "name": "Froakie",
             "lvl": 2,
             "health": 18,
-            "attack": 6
+            "attack": 6,
+            "special_attack": "Bubble Beard"
         },
         {
             "id": 4,
             "name": "Mudkip",
             "lvl": 2,
             "health": 20,
-            "attack": 4
+            "attack": 4,
+            "special_attack": "Muddy Boop"
         },
         {
             "id": 5,
             "name": "Vulpix",
             "lvl": 3,
             "health": 21,
-            "attack": 8
+            "attack": 8,
+            "special_attack": "Fire Fart"
         },
         {
             "id": 6,
             "name": "Gloom",
             "lvl": 3,
             "health": 26,
-            "attack": 5
+            "attack": 5,
+            "special_attack": "Toxic Sneeze"
         },
         {
             "id": 7,
             "name": "Eevee",
             "lvl": 4,
             "health": 40,
-            "attack": 10
+            "attack": 10,
+            "special_attack": "Fluffy Tail Whap"
         },
         {
             "id": 8,
             "name": "Pidgeotto",
             "lvl": 4,
             "health": 30,
-            "attack": 15
+            "attack": 15,
+            "special_attack": "Feather Flurry"
         },
         {
             "id": 9,
             "name": "Jigglypuff",
             "lvl": 5,
             "health": 50,
-            "attack": 9
+            "attack": 9,
+            "special_attack": "Snore Blast"
         },
         {
             "id": 10,
             "name": "Psyduck",
             "lvl": 5,
             "health": 80,
-            "attack": 6
+            "attack": 6,
+            "special_attack": "Brain Freeze"
         },
         {
             "id": 11,
             "name": "Dratini",
             "lvl": 6,
             "health": 80,
-            "attack": 35
+            "attack": 35,
+            "special_attack": "Nipple Twister"
         },
         {
             "id": 12,
             "name": "Zubat",
             "lvl": 6,
             "health": 76,
-            "attack": 27
+            "attack": 27,
+            "special_attack": "Explosive Diarrhea"
         },
         {
             "id": 13,
             "name": "Growlithe",
             "lvl": 7,
             "health": 110,
-            "attack": 31
+            "attack": 31,
+            "special_attack": "Morning Breath"
         },
         {
             "id": 14,
             "name": "Poliwag",
             "lvl": 8,
             "health": 130,
-            "attack": 37
+            "attack": 37,
+            "special_attack": "Bubble Butt"
         },
         {
             "id": 15,
             "name": "Meowth",
             "lvl": 8,
             "health": 170,
-            "attack": 20
+            "attack": 20,
+            "special_attack": "Cash Claw"
         },
         {
             "id": 16,
             "name": "Mewtwo",
             "lvl": 8,
             "health": 190,
-            "attack": 45
+            "attack": 45,
+            "special_attack": "Dropkick"
         }
     ]
 }
