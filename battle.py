@@ -25,6 +25,16 @@ def delay_print(s, delay=0.08):
         sys.stdout.flush()
         time.sleep(delay)
     print()
+    
+def perform_attack(pokemon):
+    use_special = random.random() < 0.2 
+    if use_special:
+        damage = int(pokemon["attack"] * 1.5)
+        print(f"{pokemon['name']} gebruikt {pokemon['special_attack']['name']}! Het doet {damage} schade.")
+    else:
+        damage = pokemon["attack"]
+        print(f"{pokemon['name']} gebruikt een normale aanval! Het doet {damage} schade.")
+    return damage
 
 
 def fight(id, myPokemon):
