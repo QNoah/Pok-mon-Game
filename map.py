@@ -32,7 +32,7 @@ def playSound(sound):
     effectSound.play()
 
 
-def delayPrint(s, delay=0.05):
+def delay_print(s, delay=0.05):
     for c in s:
         if c != "":
             sys.stdout.write(c)
@@ -93,8 +93,8 @@ def check_field(field):
             with open('inventory.json') as invi:
                 inv = json.load(invi)
             for itemsinInventory in inv["inventory"]:
-                if itemsinInventory['id'] == 2:
-                    Store(itemsinInventory['qty'])
+                if itemsinInventory['id'] == 1:
+                    Store(itemsinInventory['qty'], myPokemon)
 
 
     if field['pokemon']:
@@ -108,76 +108,75 @@ def check_field(field):
 
 pygame.mixer.music.load("./music/start_theme.mp3")
 pygame.mixer.music.play(loops= -1)
-chooseStarter()
-# delayPrint("""
-# Professor Oak: 
-# Ahhh... the smell of Pokemon, the best there could be!
+delay_print("""
+Professor Oak: 
+Ahhh... the smell of Pokemon, the best there could be!
 
-# Professor Oak: 
-# Welcome to the world of PokePython!
+Professor Oak: 
+Welcome to the world of PokePython!
 
-# Professor Oak: 
-# There are lots of People waiting, Pokemon, and other different things for you.
-# That means there are quite some things to experience!
+Professor Oak: 
+There are lots of People waiting, Pokemon, and other different things for you.
+That means there are quite some things to experience!
 
-# Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
-# """)
-# namePokemon = chooseStarter()
+Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
+""")
+namePokemon = chooseStarter()
 
-# delayPrint(f"""
-# Professor Oak:
-# Are you sure you want to choose {namePokemon}? (y/n)""")
-# while True:
-#     pokemon_confirm = input().lower()
-#     if pokemon_confirm == "y":
-#         break
-#     elif pokemon_confirm == "n":
-#         namePokemon = chooseStarter()
-#         delayPrint(f"""
-# Professor Oak:
-# Are you sure you want to choose {namePokemon}? (y/n)""")
-#         continue
-#     else:
-#         delayPrint(f"""
-# Professor Oak:
-# I understand how most Pokemon behave, but I don't understand their language.
-# are you sure you want to choose {namePokemon}? (y/n)
-# """)
+delay_print(f"""
+Professor Oak:
+Are you sure you want to choose {namePokemon}? (y/n)""")
+while True:
+    pokemon_confirm = input().lower()
+    if pokemon_confirm == "y":
+        break
+    elif pokemon_confirm == "n":
+        namePokemon = chooseStarter()
+        delay_print(f"""
+Professor Oak:
+Are you sure you want to choose {namePokemon}? (y/n)""")
+        continue
+    else:
+        delay_print(f"""
+Professor Oak:
+I understand how most Pokemon behave, but I don't understand their language.
+are you sure you want to choose {namePokemon}? (y/n)
+""")
 
-# delayPrint(f"""
-# Professor Oak:
-# Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
-# """)
+delay_print(f"""
+Professor Oak:
+Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
+""")
 
-# time.sleep(2)
-# delayPrint(""""
-# Professor Oak: 
-# But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
-# But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
-# Here they will fight you and it is your choice to fight them to level up your Pokemon, or to run away and go back
-# to your safe spot. (your pokemon would still be hurt if it has taken damage)
-# """)
+time.sleep(2)
+delay_print(""""
+Professor Oak: 
+But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
+But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
+Here they will fight you and it is your choice to fight them to level up your Pokemon, or to run away and go back
+to your safe spot. (your pokemon would still be hurt if it has taken damage)
+""")
 
-# input()
-# delayPrint("""
-# Professor Oak:
-# There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
-# It can be hard to go through the first few steps so here take this use these items well..
-# """)
+input()
+delay_print("""
+Professor Oak:
+There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
+It can be hard to go through the first few steps so here take this use these items well..
+""")
 
-# input()
-# pygame.mixer.music.pause()
-# playSound("obtain_item")
-# print("Professor Oak gave you 5 coins")
-# input(), print("Professor Oak gave you a healing potion")
-# playSound("obtain_item")
-# time.sleep(3)
-# pygame.mixer.music.unpause()
-# input()
-# delayPrint("""
-# Professor Oak:
-# Alright then... I'll see you at the end..""")
-# input()
+input()
+pygame.mixer.music.pause()
+playSound("obtain_item")
+print("Professor Oak gave you 5 coins")
+input(), print("Professor Oak gave you a healing potion")
+playSound("obtain_item")
+time.sleep(3)
+pygame.mixer.music.unpause()
+input()
+delay_print("""
+Professor Oak:
+Alright then... I'll see you at the end..""")
+input()
 
 pygame.mixer.music.load("./music/adventure_theme.mp3")
 pygame.mixer.music.play(loops= -1)
@@ -201,8 +200,63 @@ while current_position < 10:
             continue
         
     os.system("cls")
+
     if option == 1:
-        pass
+        item_not_selected = True
+        while item_not_selected:
+            with open('inventory.json') as inv:
+                items = json.load(inv)
+                inventory = list(filter(lambda item: item['qty'] > 0, items['inventory']))
+            
+            for item in inventory:
+                print(f"Option: {item['id']}, you have {item['qty']}x {item['name']}. It gives {item['attribute_value']} {item['attribute']} \n")
+            
+            wanna_use = input('Would you like to use anything? (Y/N): ')
+            
+            if wanna_use.lower() == 'n':
+                break
+            elif wanna_use.lower() == 'y':
+                while wanna_use.lower() == 'y':
+                    try:
+                        item_choice = int(input('Choose your option: '))
+                        
+                        if any(item_choice == i['id'] for i in inventory):
+                            for item in items['inventory']:
+                                if item['id'] == item_choice:
+                                    if item['attribute'] == "health":  # hp increase
+                                        myPokemon.health += item['attribute_value']
+                                        delay_print(f'You used a {item["name"]} and increased your health from {(myPokemon.health - item["attribute_value"])} to {myPokemon.health}\n')
+                                        item['qty'] -= 1  # Deduct 1 from quantity
+                                        print(f'You now have {item["qty"]} left of {item["name"]}')
+                                        time.sleep(1)
+                                    
+                                    else:
+                                        if item['name'] == "Coins":
+                                            delay_print('You can only use this at the merchant')
+                                            time.sleep(1)
+                                        else:
+                                            delay_print('You can only use this potion in battles')
+                                    
+                                    with open('inventory.json', 'w') as inv:
+                                        json.dump(items, inv, indent=4)
+                                    
+                                    item_not_selected = False
+                                    break
+                        
+                        else:
+                            delay_print('Wrong option\n ')
+                    
+                    except ValueError:
+                        delay_print("Wrong input\n ")
+                    
+                    item_not_selected = False
+                    break
+            else:
+                delay_print('Wrong Input \n')
+                continue
+
+            
+
     elif option == 2:
         previous_position = current_position
         dice_roll = roll_dice()
@@ -216,7 +270,7 @@ while current_position < 10:
             current_hp = MAX_HP
             print("You have passed or you are at a checkpoint. Your health has regenerated.")
     elif option == 3:
-        current_position += 3
+        current_position += 1
 
     current_field = board[current_position - 1]
 

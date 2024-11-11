@@ -3,27 +3,32 @@
         {
             "lvl": 1,
             "health": 5,
-            "attack": 2
+            "attack": 2,
+            "membership" : 0
         },
         {
             "lvl": 2,
             "health": 8,
-            "attack": 3
+            "attack": 3,
+            "membership" : 0
         },
         {  
              "lvl": 3,
             "health": 12,
-            "attack": 4
+            "attack": 4,
+            "membership" : 1
         },
         {  
              "lvl": 4,
             "health": 17,
-            "attack": 6
+            "attack": 6,
+            "membership" : 1
         },
         {  
              "lvl": 5,
             "health": 28,
-            "attack": 9
+            "attack": 9,
+            "membership" : 2
         }
     ]
 }

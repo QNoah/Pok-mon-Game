@@ -2,18 +2,101 @@
   "inventory": [
     {
       "id": 1,
-      "name": "healing_potion",
-      "qty": 1
+      "name": "Coins",
+      "qty": 5,
+      "attribute": "currency",
+      "attribute_value": "",
+      "attribute_calc": "",
+      "type_item": "shop"
     },
     {
       "id": 2,
-      "name": "coins",
-      "qty": 5
+      "name": "Healing Potion",
+      "qty": 1,
+      "attribute": "health",
+      "attribute_value": 2,
+      "attribute_calc": "+",
+      "type_item": "all"
     },
     {
       "id": 3,
-      "name": "dice_8",
-      "qty": 0
+      "name": "Endurance Potion",
+      "qty": 1,
+      "attribute": "shield",
+      "attribute_value": 0.5,
+      "attribute_calc": "*",
+      "type_item": "battle"
+    },
+    {
+      "id": 4,
+      "name": "Super Endurance Potion",
+      "qty": 0,
+      "attribute": "shield",
+      "attribute_value": 0.8,
+      "attribute_calc": "*",
+      "type_item": "battle"
+    },
+    {
+      "id": 5,
+      "name": "Luck Potion",
+      "qty": 0,
+      "attribute": "luck",
+      "attribute_value": 1.33,
+      "attribute_calc": "*",
+      "type_item": "battle"
+    },
+    {
+      "id": 6,
+      "name": "Super Lucky Potion",
+      "qty": 0,
+      "attribute": "luck",
+      "attribute_value": 1.66,
+      "attribute_calc": "*",
+      "type_item": "battle"
+    },
+    {
+      "id": 7,
+      "name": "Super Healing Potion",
+      "qty": 0,
+      "attribute": "health",
+      "attribute_value": 5,
+      "attribute_calc": "+",
+      "type_item": "all"
+    },
+    {
+      "id": 8,
+      "name": "Ferocity Potion",
+      "qty": 1,
+      "attribute": "damage",
+      "attribute_value": 1.5,
+      "attribute_calc": "*",
+      "type_item": "battle"
+    },
+    {
+      "id": 9,
+      "name": "Super Ferocious potion",
+      "qty": 0,
+      "attribute": "damage",
+      "attribute_value": 2.0,
+      "attribute_calc": "*",
+      "type_item": "battle"
+    },
+
+    {
+      "id": 10,
+      "name": "Pokeball",
+      "qty": 0,
+      "attribute": "catch",
+      "attribute_value": 15,
+      "attribute_calc": "%"
+    },
+    {
+      "id": 11,
+      "name": "Masterball",
+      "qty": 0,
+      "attribute": "catch",
+      "attribute_value": 30,
+      "attribute_calc": "%"
     }
   ]
 }

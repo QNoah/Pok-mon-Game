@@ -1,16 +1,93 @@
-{"storeStock" : [
-    {
-
-            "name" : "healing_potion",
-            "id": 1,
-            "stock": 2,
-            "cost": 2
-        },
-        {
-            "name" : "dice_8", 
-            "id": 2,
-            "stock": 1,
-            "cost": 4
-        
-    }
-]}
+{
+    "storeStock": [
+      {
+        "id": 1,
+        "name": "Healing Potion",
+        "attribute": "health",
+        "cost": 3,
+        "attribute_value": 2,
+        "type_item": "all",
+        "Gym_Membership": 0
+      },
+      {
+        "id": 2,
+        "name": "Endurance Potion",
+        "attribute": "shield",
+        "cost": 3,
+        "attribute_value": 0.5,
+        "type_item": "battle",
+        "Gym_Membership": 0
+      },
+      {
+        "id": 3,
+        "name": "Super Endurance Potion",
+        "attribute": "shield",
+        "cost": 12,
+        "attribute_value": 0.8,
+        "type_item": "battle",
+        "Gym_Membership": 1
+      },
+      {
+        "id": 4,
+        "name": "Luck Potion",
+        "attribute": "luck",
+        "cost": 4,
+        "attribute_value": 1.33,
+        "type_item": "battle",
+        "Gym_Membership": 0
+      },
+      {
+        "id": 5,
+        "name": "Super Lucky Potion",
+        "attribute": "luck",
+        "cost": 17,
+        "attribute_value": 1.66,
+        "type_item": "battle",
+        "Gym_Membership": 1
+      },
+      {
+        "id": 6,
+        "name": "Super Healing Potion",
+        "attribute": "health",
+        "cost": 15,
+        "attribute_value": 5,
+        "type_item": "all",
+        "Gym_Membership": 1
+      },
+      {
+        "id": 7,
+        "name": "Ferocity Potion",
+        "attribute": "damage",
+        "cost": 5,
+        "attribute_value": 1.5,
+        "type_item": "battle",
+        "Gym_Membership": 0
+      },
+      {
+        "id": 8,
+        "name": "Super Ferocious potion",
+        "attribute": "damage",
+        "attribute_value": 2.0,
+        "cost": 13,
+        "type_item": "battle",
+        "Gym_Membership": 1
+      },
+      {
+        "id": 9,
+        "name": "Pokeball",
+        "attribute": "catch",
+        "cost": 2,
+        "attribute_value": "15%",
+        "Gym_Membership": 0
+      },
+      {
+        "id": 10,
+        "name": "Masterball",
+        "attribute": "catch",
+        "cost": 10,
+        "attribute_value": "30%",
+        "Gym_Membership": 1
+      }
+    ]
+  }
+  

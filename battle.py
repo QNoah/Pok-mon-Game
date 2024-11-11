@@ -37,6 +37,9 @@ def fight(id, myPokemon):
     delay_print(f"You chose {myPokemon.name}")
     while myPokemon.health > 0 and enemy.health > 0:
         if turn == "player":
+            damage_multiplier = 1
+            enemy_damage_multiplier = 1
+            catch_luck_factor = 1
             print("What is your next move?")
             print("1. Escape (Go back the steps you rolled.)")
             print(f"2. Fight (roll 0 > {myPokemon.attack})")
@@ -50,10 +53,12 @@ def fight(id, myPokemon):
                     continue
             playSound("select", 1)
             if _ == 1:
+
+                turn = "cpu"
                 pass
-                # lose()
             elif _ == 2:
-                damage = random.randint(0, myPokemon.attack)
+                damage = random.randint(0, myPokemon.attack) * damage_multiplier
+                damage_multiplier = 1
                 if damage == 0:
                     os.system("cls")
                     time.sleep(1)
@@ -95,14 +100,17 @@ def fight(id, myPokemon):
                     else:
                         delay_print(f'{enemy.name} is at {enemy.health}HP')
                         time.sleep(1)
+                turn = "cpu"
             elif _ == 3:
                 os.system("cls")
+                bulk_use = ''
                 item_not_selected = True
                 while item_not_selected:
                     with open('inventory.json') as inv:
                         items = json.load(inv)
                         for item in items['inventory']:
-                            print(f"Option: {item['id']}, item: {item['name']}, qty: {item['qty']}")
+                            if item['id'] == item_choice and item['qty'] > 0 and item['name'] != 'coins':
+                                print(f"Option: {item['id']}, item: {item['name']}, qty: {item['qty']}, | {item['attribute_calc']} {item['attribute_value']} {item['attribute']}")
                         time.sleep(1)
                         delay_print('Choose your item:')
                         try:
@@ -110,26 +118,38 @@ def fight(id, myPokemon):
                         except ValueError:
                             print("Wrong input")
                     for item in items['inventory']:
-                        if item['id'] == item_choice and item['qty'] > 0 and item['id'] != 2:
+                        if item['id'] == item_choice and item['qty'] > 0 and item['name'] != 'coins':
                             item['qty'] -= 1
-                            delay_print(f'You used {item["name"]}')
-                            if item['id'] == 1:
-                                #hp increase
-                                pass
-                            if item['id'] == 3:
-                                pass
-                                # roll another dice?
-                            if item['id'] == 4:
-                                pass
-                                # ability does 2x damage
-                       #3w elif  
-                            
+                            if item['attribute'] == "health": #hp increase
+                                myPokemon.health += item['attribute_value']
+                                delay_print(f'You used a {item["name"]} and increased your health from {(myPokemon.health - item["attribute_value"])} to {myPokemon.health}')
+                            elif item['attribute'] == 'shield': #incoming damage decrease for a turn
+                                enemy_damage_multiplier = 1
+                                enemy_damage_multiplier *= item['attribute_value']
+                                delay_print(f'You used a {item["name"]} and decreased enemy damage by {item["attribute_value"] * 100}%')
+                            elif item['attribute'] == 'luck': #catching pokemon luck
+                                catch_luck_factor = 1
+                                catch_luck_factor *= item['attribute_value']
+                                delay_print(f'You used a {item["name"]} and increased the chance of catching {enemy.name} by {item["attribute_value"] * 100}%')
+                            elif item['attribute'] == 'damage': #increased damage for a turn
+                                damage_multiplier = 1
+                                damage_multiplier *= item["attribute_value"]
+                                delay_print(f'You used a {item["name"]} and increased your damage for the next turn by {item["attribute_value"] * 100}%')
+
+                    while bulk_use not in ['Y', 'N']:
+                        bulk_use = input('Do you want to use another item? (Y/N) ')
+                        if bulk_use.upper() == 'Y':
+                            continue
+                        elif bulk_use.upper() == 'N':
+                            item_not_selected == False
+
                             
                         
                     
             turn = "cpu"
         elif turn == "cpu":
-            damage = random.randint(0, enemy.attack)
+            damage = random.randint(0, enemy.attack) * enemy_damage_multiplier
+            enemy_damage_multiplier = 1
             if damage == 0:
                 time.sleep(1)
                 os.system("cls")
