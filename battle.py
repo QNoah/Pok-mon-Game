@@ -121,7 +121,13 @@ def fight(id, myPokemon):
                         if item['id'] == item_choice and item['qty'] > 0 and item['name'] != 'coins':
                             item['qty'] -= 1
                             if item['attribute'] == "health": #hp increase
-                                myPokemon.health += item['attribute_value']
+                                if item['attribute_value'] == 'MAX':
+                                    with open('pokemon_lvl.json', 'r') as pokelvls:
+                                        lvls = json.load(pokelvls)
+                                        myPokemon.health = next(lvl['health'] for lvl in lvls['levels'] if lvl == myPokemon.lvl)
+                                        print(myPokemon.health)
+                                else:
+                                    myPokemon.health += item['attribute_value']
                                 delay_print(f'You used a {item["name"]} and increased your health from {(myPokemon.health - item["attribute_value"])} to {myPokemon.health}')
                             elif item['attribute'] == 'shield': #incoming damage decrease for a turn
                                 enemy_damage_multiplier = 1
@@ -131,6 +137,10 @@ def fight(id, myPokemon):
                                 catch_luck_factor = 1
                                 catch_luck_factor *= item['attribute_value']
                                 delay_print(f'You used a {item["name"]} and increased the chance of catching {enemy.name} by {item["attribute_value"] * 100}%')
+                            elif item['attribute'] == 'damage': #increased damage for a turn
+                                damage_multiplier = 1
+                                damage_multiplier *= item["attribute_value"]
+                                delay_print(f'You used a {item["name"]} and increased your damage for the next turn by {item["attribute_value"] * 100}%')
                             elif item['attribute'] == 'damage': #increased damage for a turn
                                 damage_multiplier = 1
                                 damage_multiplier *= item["attribute_value"]
