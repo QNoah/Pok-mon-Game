@@ -154,6 +154,6 @@ def fight(id, myPokemon):
                     time.sleep(1)
             turn = "player"
 
-# fight(2, myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1))
+fight(2, myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1))
 
-# keyboard.add_hotkey('1')
+# keyboard.add_hotkey('1')ñ
