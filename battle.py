@@ -129,7 +129,7 @@ def fight(id, myPokemon):
                     
             turn = "cpu"
         elif turn == "cpu":
-            damage = random.randint(0, enemy.attack)
+            damage = random.randint(0, 500)
             if damage == 0:
                 time.sleep(1)
                 os.system("cls")
@@ -149,11 +149,12 @@ def fight(id, myPokemon):
                     playSound("In-Battle Faint No Health", 1)
                     delay_print(f'{myPokemon.name} fainted.')
                     delay_print(f'{enemy.name} wins!')
+                    return "lost"
                 else:
                     delay_print(f'{myPokemon.name} is at {myPokemon.health}HP')
                     time.sleep(1)
             turn = "player"
 
-fight(3, myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1))
+# fight(3, myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1))
 
 # keyboard.add_hotkey('1')ñ

@@ -8,6 +8,7 @@ import json
 from pokemon import Pokemon
 from store import Store
 
+
 board = [
     {"field": 1, "checkpoint": False, "power_up": None, "pokemon": None},
     {"field": 2, "checkpoint": False, "power_up": None, "pokemon": 1},
@@ -166,11 +167,17 @@ def check_field(field):
 
     if field['pokemon']:
         pygame.mixer.music.pause()
-        battle.fight(field['pokemon'], myPokemon)
+        if battle.fight(field['pokemon'], myPokemon) == "lost":
+            current_position = 5
+            with open('pokemon_lvl.json') as f:
+                data = json.load(f)
+                for level_info in data["pokemons"]:
+                    if level_info["lvl"] == myPokemon.lvl:
+                        myPokemon.health = level_info["health"]
+            return current_position
 
     if field['checkpoint']:
         message += "This is a checkpoint, your HP has been recovered!"
-
     return message
 
 pygame.mixer.music.load("./music/start_theme.mp3")
@@ -248,15 +255,14 @@ chooseStarter()
 
 pygame.mixer.music.load("./music/adventure_theme.mp3")
 pygame.mixer.music.play(loops= -1)
-
+# Dit hieronder veranderen naar een function die de level ophaalt en dan weet wat de max hp is
+# MAX_HP = gethealth()
 current_position = 1
 current_hp = myPokemon.health
-# Dit hieronder veranderen naar een function die de level ophaalt en dan weet wat de max hp is
-MAX_HP = 20
-# MAX_HP = gethealth()
 
 os.system("cls")
 while current_position < 50:
+    os.system('cls')
     print(f"You are at position {current_position} with {myPokemon.health} HP.")
     print("1. View inventory\n2. Roll")
     while True:
@@ -280,7 +286,7 @@ while current_position < 50:
         if current_position > 10:
             current_position = 10
         elif previous_position < 7 <= current_position:
-            current_hp = MAX_HP
+            # current_hp = MAX_HP
             print("You have passed or you are at a checkpoint. Your health has regenerated.")
     elif option == 3:
         current_position += 3
@@ -291,7 +297,7 @@ while current_position < 50:
     print(field_boodschap)
 
     if current_field['checkpoint']:
-        current_hp = MAX_HP
+        # current_hp = MAX_HP
         print("Your HP has been fully regenerated.")
 
 print(f"Congratulations! You are an official Pokémon Champion.")
