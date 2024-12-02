@@ -9,8 +9,8 @@ class Pokemon:
         self.name = name
         with open('pokemon_lvl.json') as f:
             data = json.load(f)
-            for level_info in data["levels"]:
-                if level_info["lvl"] == lvl:
+            for level_info in data["pokemons"]:
+                if level_info["levels"] == lvl:
                     self.health = level_info["health"]
                     self.attack = level_info["attack"]
         self.lvl = lvl
