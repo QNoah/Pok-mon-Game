@@ -1,8 +1,17 @@
 from trainer import trainerProfile
 
-player = trainerProfile(name="Quinten")
-player.add_party({"id": 1, "name": "Charmander"})
-player.add_party({"id": 2, "name": "Squirtle"})
-player.add_party({"id": 3, "name": "Pook"})
-# It will ask here what to do since it is quite full
-player.add_party({"id": 1, "name": "Charmander"})
+def test_party_add():
+    player = trainerProfile(name="Quinten")
+    player.add_party({"id": 1, "name": "Charmander"})
+    print(player.party)
+
+
+def test_party_add_full():
+    player = trainerProfile(name="Quinten")
+    player.add_party({"id": 1, "name": "Squirtle"})
+    player.add_party({"id": 2, "name": "Dodo"})
+    player.add_party({"id": 3, "name": "Pook"})
+    player.add_party({"id": 4, "name": "Charmander"})
+    print(player.party)
+
+test_party_add_full()
