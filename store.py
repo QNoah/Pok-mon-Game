@@ -31,14 +31,12 @@ class Store:
     def buy(self):
         delay_print(f'Your current balance is {self.balance}$\n')
         delay_print('What would you like to buy? \n')
-
         affordable_items = [
             item for item in self.stock['storeStock']
             if item["cost"] <= self.balance and item["Gym_Membership"] <= self.mypokemon.membership
         ]
         for item in affordable_items:
             delay_print(f'{item["id"]}) {item["name"]} for {item["cost"]}$\n')
-
         try:
             item_choice = int(input("Enter the item number: "))
             selected_item = next(
