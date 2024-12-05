@@ -35,6 +35,8 @@ def fight(id, myPokemon):
     delay_print(f"A wild {enemy.name} has appeared!")
     playSound("Pokemon Out", 0.3)
     delay_print(f"You chose {myPokemon.name}")
+    damage_multiplier = 1
+    enemy_damage_multiplier = 1
     while myPokemon.health > 0 and enemy.health > 0:
         if turn == "player":
             print("What is your next move?")
@@ -53,7 +55,8 @@ def fight(id, myPokemon):
                 pass
                 # lose()
             elif _ == 2:
-                damage = random.randint(0, myPokemon.attack)
+                damage = random.randint(0, myPokemon.attack) * damage_multiplier
+                print(f"[DEBUG] Damage Multiplier: {damage_multiplier}, Calculated Damage: {damage}")
                 if damage == 0:
                     os.system("cls")
                     time.sleep(1)
@@ -99,37 +102,82 @@ def fight(id, myPokemon):
                 os.system("cls")
                 item_not_selected = True
                 while item_not_selected:
-                    with open('inventory.json') as inv:
+                    with open('C:/Users/nitro/PokePython-1/inventory.json', 'r') as inv:
                         items = json.load(inv)
-                        for item in items['inventory']:
-                            print(f"Option: {item['id']}, item: {item['name']}, qty: {item['qty']}")
-                        time.sleep(1)
-                        delay_print('Choose your item:')
-                        try:
-                            item_choice = int(input())
-                        except ValueError:
-                            print("Wrong input")
-                    for item in items['inventory']:
-                        if item['id'] == item_choice and item['qty'] > 0 and item['id'] != 2:
-                            item['qty'] -= 1
-                            delay_print(f'You used {item["name"]}')
-                            if item['id'] == 1:
-                                #hp increase
-                                pass
-                            if item['id'] == 3:
-                                pass
-                                # roll another dice?
-                            if item['id'] == 4:
-                                pass
-                                # ability does 2x damage
-                       #3w elif  
-                            
-                            
-                        
+                        available_items = [
+                            item for item in items['inventory']
+                            if item['qty'] > 0 and item['id'] != 1
+                        ]
+                        if available_items:
+                            print("Available Items:")
+                            for item in available_items:
+                                print(f"Option: {item['id']}, Item: {item['name']}, Qty: {item['qty']}, "
+                                    f"Effect: {item['attribute_calc']} {item['attribute_value']} {item['attribute']}")
+                        else:
+                            delay_print("No usable items in your inventory!")
+                            break
+
+                    time.sleep(1)
+                    delay_print("Choose your item (Enter the Option ID):")
+
+                    try:
+                        item_choice = int(input())
+                    except ValueError:
+                        print("Invalid input. Please enter a valid Option ID.")
+                        continue
+
+                    selected_item = next((item for item in available_items if item['id'] == item_choice), None)
+                    if not selected_item:
+                        print("Invalid choice or item not available.")
+                        continue
+
+                    selected_item['qty'] -= 1
+                    if selected_item['attribute'] == "health": 
+                        if selected_item['attribute_value'] == 'MAX':
+                            with open('pokemon_lvl.json', 'r') as pokelvls:
+                                lvls = json.load(pokelvls)
+                                max_health = next(
+                                    lvl['health'] for lvl in lvls['levels']
+                                    if lvl['level'] == myPokemon.lvl
+                                )
+                                myPokemon.health = max_health
+                        else:
+                            myPokemon.health = min(
+                                myPokemon.health + selected_item['attribute_value'],
+                                myPokemon.max_health
+                            )
+                        delay_print(f"You used a {selected_item['name']}. {myPokemon.name}'s health is now {myPokemon.health}.")
+
+                    elif selected_item['attribute'] == "shield":
+                        enemy_damage_multiplier = selected_item['attribute_value']
+                        delay_print(f"You used a {selected_item['name']}! Enemy damage reduced by {enemy_damage_multiplier * 100}% for the next turn.")
+
+                    elif selected_item['attribute'] == "luck":
+                        catch_luck_factor = selected_item['attribute_value']
+                        delay_print(f"You used a {selected_item['name']}! Catch rate increased by {catch_luck_factor * 100}%.")
+
+                    elif selected_item['attribute'] == "damage":
+                        damage_multiplier = selected_item['attribute_value']
+                        delay_print(f"You used a {selected_item['name']}! Damage boosted by {damage_multiplier * 100}% for the next turn.")
+
+                    with open('C:/Users/nitro/PokePython-1/inventory.json', 'w') as inv:
+                        json.dump(items, inv, indent=4)
+
+                    while True:
+                        bulk_use = input("Do you want to use another item? (Y/N): ").upper()
+                        if bulk_use == 'Y':
+                            break
+                        elif bulk_use == 'N':
+                            item_not_selected = False
+                            break
+                        else:
+                            print("Invalid input. Please enter 'Y' or 'N'.")
                     
-            turn = "cpu"
+            enemy_damage_multiplier = 1
+            turn = "player"
         elif turn == "cpu":
-            damage = random.randint(0, enemy.attack)
+            damage = random.randint(0, enemy.attack) * enemy_damage_multiplier
+            print(f"[DEBUG] Enemy Damage Multiplier: {enemy_damage_multiplier}, Calculated Damage: {damage}")
             if damage == 0:
                 time.sleep(1)
                 os.system("cls")
@@ -152,6 +200,7 @@ def fight(id, myPokemon):
                 else:
                     delay_print(f'{myPokemon.name} is at {myPokemon.health}HP')
                     time.sleep(1)
+            enemy_damage_multiplier = 1
             turn = "player"
 
 # fight(2, myPokemon = Pokemon(id = 1,name = "Charmander", lvl = 1))

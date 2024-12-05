@@ -91,7 +91,7 @@ def playSound(sound):
     effectSound.play()
 
 
-def delayPrint(s, delay=0.05):
+def delay_print(s, delay=0.05):
     for c in s:
         if c != "":
             sys.stdout.write(c)
@@ -160,8 +160,9 @@ def check_field(field):
             with open('inventory.json') as invi:
                 inv = json.load(invi)
             for itemsinInventory in inv["inventory"]:
-                if itemsinInventory['id'] == 2:
-                    Store(itemsinInventory['qty'])
+                if itemsinInventory['id'] == 1:
+                    merchant_encounter = Store(itemsinInventory['qty'], myPokemon)
+                    merchant_encounter.buy_or_sell()
 
 
     if field['pokemon']:
@@ -176,7 +177,7 @@ def check_field(field):
 pygame.mixer.music.load("./music/start_theme.mp3")
 pygame.mixer.music.play(loops= -1)
 chooseStarter()
-# delayPrint("""
+# delay_print("""
 # Professor Oak: 
 # Ahhh... the smell of Pokemon, the best there could be!
 
@@ -191,7 +192,7 @@ chooseStarter()
 # """)
 # namePokemon = chooseStarter()
 
-# delayPrint(f"""
+# delay_print(f"""
 # Professor Oak:
 # Are you sure you want to choose {namePokemon}? (y/n)""")
 # while True:
@@ -200,24 +201,24 @@ chooseStarter()
 #         break
 #     elif pokemon_confirm == "n":
 #         namePokemon = chooseStarter()
-#         delayPrint(f"""
+#         delay_print(f"""
 # Professor Oak:
 # Are you sure you want to choose {namePokemon}? (y/n)""")
 #         continue
 #     else:
-#         delayPrint(f"""
+#         delay_print(f"""
 # Professor Oak:
 # I understand how most Pokemon behave, but I don't understand their language.
 # are you sure you want to choose {namePokemon}? (y/n)
 # """)
 
-# delayPrint(f"""
+# delay_print(f"""
 # Professor Oak:
 # Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
 # """)
 
 # time.sleep(2)
-# delayPrint(""""
+# delay_print(""""
 # Professor Oak: 
 # But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
 # But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
@@ -226,7 +227,7 @@ chooseStarter()
 # """)
 
 # input()
-# delayPrint("""
+# delay_print("""
 # Professor Oak:
 # There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
 # It can be hard to go through the first few steps so here take this use these items well..
@@ -241,7 +242,7 @@ chooseStarter()
 # time.sleep(3)
 # pygame.mixer.music.unpause()
 # input()
-# delayPrint("""
+# delay_print("""
 # Professor Oak:
 # Alright then... I'll see you at the end..""")
 # input()
@@ -269,7 +270,54 @@ while current_position < 50:
         
     os.system("cls")
     if option == 1:
-        pass
+        item_not_selected = True
+        while item_not_selected:
+            with open('inventory.json') as inv:
+                items = json.load(inv)
+                inventory = list(filter(lambda item: item['qty'] > 0, items['inventory']))
+            
+            for item in inventory:
+                item_print = f"Option: {item['id']}, you have {item['qty']}x {item['name']}. It gives {item['attribute_value']} {item['attribute']}"
+                if item['type_item'] != 'all':
+                    print(item_print, '(Can only be used in', item['type_item'] + ')')
+                else:
+                    print(item_print)
+                     
+            wanna_use = input('Would you like to use anything? (Y/N): ')
+            
+            if wanna_use.lower() == 'n':
+                break
+            if wanna_use.lower() == 'y':
+                while wanna_use.lower() == 'y':
+                    try:
+                        item_choice = int(input('Choose your option: '))
+
+                        selected_item = next((item for item in inventory if item['id'] == item_choice), None)
+                        
+                        if selected_item:
+                            if selected_item['attribute'] == "health":
+                                original_health = myPokemon.health
+                                myPokemon.health = min(myPokemon.health + selected_item['attribute_value'], myPokemon.max_health)
+                                print(f"You used a {selected_item['name']} and increased your health from {original_health} to {myPokemon.health}.")
+                                selected_item['qty'] -= 1 
+                                time.sleep(2)
+                            else:
+                                print(f"The {selected_item['name']} can only be used in battles.")
+                                time.sleep(2)
+                            
+                            with open('inventory.json', 'w') as inv:
+                                json.dump(items, inv, indent=4)
+                        else:
+                            print("Invalid choice. Please select an item from the inventory.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number.")
+
+                    item_not_selected = False
+                    break
+            else:
+                delay_print('Wrong Input \n')
+                continue
+
     elif option == 2:
         previous_position = current_position
         dice_roll = roll_dice()
