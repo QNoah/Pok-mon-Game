@@ -22,7 +22,7 @@ board = [
     {"field": 8, "checkpoint": False, "power_up": None, "pokemon": 3},
     {"field": 9, "checkpoint": False, "power_up": " Big_dice", "pokemon": None},
     #dobbelsteen met 8 of 9 ogen
-    {"field": 10, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 10, "checkpoint": True, "power_up": None, "pokemon": None},
     {"field": 11, "checkpoint": False, "power_up": None, "pokemon": None},
     {"field": 12, "checkpoint": False, "power_up": None, "pokemon": 4},
     {"field": 13, "checkpoint": False, "power_up": "Damage potion", "pokemon": None},
@@ -36,7 +36,7 @@ board = [
     {"field": 18, "checkpoint": False, "power_up": None, "pokemon": 6},
     {"field": 19, "checkpoint": False, "power_up": "Mini-Shield", "pokemon": None},
     #blokkeert 25 damage 
-    {"field": 20, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 20, "checkpoint": True, "power_up": None, "pokemon": None},
     {"field": 21, "checkpoint": False, "power_up": "Amulet Coin", "pokemon": None},
     #verdubbelt aantal coins na 1 gevecht
     {"field": 22, "checkpoint": False, "power_up": None, "pokemon": 7},
@@ -50,7 +50,7 @@ board = [
     {"field": 28, "checkpoint": False, "power_up": None, "pokemon": 9},
     {"field": 29, "checkpoint": False, "power_up": "big_dice", "pokemon": None},
     #dobbelsteen met 8 of 9 ogen
-    {"field": 30, "checkpoint": False, "power_up": None, "pokemon": None},
+    {"field": 30, "checkpoint": True, "power_up": None, "pokemon": None},
     {"field": 31, "checkpoint": False, "power_up": "Max Potion", "pokemon": None},
     #restored alle HP
     {"field": 32, "checkpoint": False, "power_up": None, "pokemon": 10},
@@ -64,7 +64,7 @@ board = [
     {"field": 38, "checkpoint": False, "power_up": None, "pokemon": 12},
     {"field": 39, "checkpoint": False, "power_up": "Amulet Coin", "pokemon": None},
     #verdubbelt Coins na gevecht
-    {"field": 40, "checkpoint": False, "power_up": None, "pokemon": 13},
+    {"field": 40, "checkpoint": True, "power_up": None, "pokemon": 13},
     {"field": 41, "checkpoint": False, "power_up": "Damage Potion", "pokemon": None},
     #verdubbelt damage voor 1 attack
     {"field": 42, "checkpoint": False, "power_up": None, "pokemon": 14},
@@ -92,7 +92,7 @@ def playSound(sound):
     effectSound.play()
 
 
-def delayPrint(s, delay=0.05):
+def delayPrint(s, delay=0):
     for c in s:
         if c != "":
             sys.stdout.write(c)
@@ -135,10 +135,12 @@ def chooseStarter():
         
 
 def roll_dice(max_value=5):
-    return random.randint(1, max_value)
+    return 2
+    # return random.randint(1, max_value)
 
 
 def check_field(field):
+    global current_position, last_checkpoint, last_passed_checkpoint
     os.system("cls")
     message = f"Je staat op {field['field']}."
 
@@ -163,105 +165,126 @@ def check_field(field):
             for itemsinInventory in inv["inventory"]:
                 if itemsinInventory['id'] == 2:
                     Store(itemsinInventory['qty'])
-
-
+                    
     if field['pokemon']:
         pygame.mixer.music.pause()
         if battle.fight(field['pokemon'], myPokemon) == "lost":
-            current_position = 5
+            print("You lost the battle!")
+            current_position = last_checkpoint  
             with open('pokemon_lvl.json') as f:
                 data = json.load(f)
                 for level_info in data["pokemons"]:
                     if level_info["lvl"] == myPokemon.lvl:
-                        myPokemon.health = level_info["health"]
-            return current_position
+                        myPokemon.health = level_info["health"]  
+            return "lost"
 
     if field['checkpoint']:
-        message += "This is a checkpoint, your HP has been recovered!"
+        last_checkpoint = field['field']
+        last_passed_checkpoint = last_checkpoint
+        current_position = last_checkpoint
+        message += "Dit is een checkpoint, je HP is hersteld!"
+#        myPokemon.health = myPokemon.max_health - moet nog fixen
+
     return message
 
 pygame.mixer.music.load("./music/start_theme.mp3")
 pygame.mixer.music.play(loops= -1)
 chooseStarter()
-# delayPrint("""
-# Professor Oak: 
-# Ahhh... the smell of Pokemon, the best there could be!
+delayPrint("""
+Professor Oak: 
+Ahhh... the smell of Pokemon, the best there could be!
 
-# Professor Oak: 
-# Welcome to the world of PokePython!
+Professor Oak: 
+Welcome to the world of PokePython!
 
-# Professor Oak: 
-# There are lots of People waiting, Pokemon, and other different things for you.
-# That means there are quite some things to experience!
+Professor Oak: 
+There are lots of People waiting, Pokemon, and other different things for you.
+That means there are quite some things to experience!
 
-# Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
-# """)
-# namePokemon = chooseStarter()
+Professor Oak: There are some things I have to explain, but first choose your Starter Pokemon!
+""")
+namePokemon = chooseStarter()
 
-# delayPrint(f"""
-# Professor Oak:
-# Are you sure you want to choose {namePokemon}? (y/n)""")
-# while True:
-#     pokemon_confirm = input().lower()
-#     if pokemon_confirm == "y":
-#         break
-#     elif pokemon_confirm == "n":
-#         namePokemon = chooseStarter()
-#         delayPrint(f"""
-# Professor Oak:
-# Are you sure you want to choose {namePokemon}? (y/n)""")
-#         continue
-#     else:
-#         delayPrint(f"""
-# Professor Oak:
-# I understand how most Pokemon behave, but I don't understand their language.
-# are you sure you want to choose {namePokemon}? (y/n)
-# """)
+delayPrint(f"""
+Professor Oak:
+Are you sure you want to choose {namePokemon}? (y/n)""")
+while True:
+    pokemon_confirm = input().lower()
+    if pokemon_confirm == "y":
+        break
+    elif pokemon_confirm == "n":
+        namePokemon = chooseStarter()
+        delayPrint(f"""
+Professor Oak:
+Are you sure you want to choose {namePokemon}? (y/n)""")
+        continue
+    else:
+        delayPrint(f"""
+Professor Oak:
+I understand how most Pokemon behave, but I don't understand their language.
+are you sure you want to choose {namePokemon}? (y/n)
+""")
 
-# delayPrint(f"""
-# Professor Oak:
-# Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
-# """)
+delayPrint(f"""
+Professor Oak:
+Make sure to take good care of {namePokemon}, after all your Pokemon and you will be best buddies.
+""")
 
-# time.sleep(2)
-# delayPrint(""""
-# Professor Oak: 
-# But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
-# But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
-# Here they will fight you and it is your choice to fight them to level up your Pokemon, or to run away and go back
-# to your safe spot. (your pokemon would still be hurt if it has taken damage)
-# """)
+time.sleep(2)
+delayPrint(""""
+Professor Oak: 
+But let me tell you a bit about your adventure. You and your Pokemon must get to the end of this region.
+But it won't be easy, on the way to the region there are angry Pokemons waiting for you to enter the grass.
+Here they will fight you and it is your choice to fight them to level up your Pokemon, or to run away and go back
+to your safe spot. (your pokemon would still be hurt if it has taken damage)
+""")
 
-# input()
-# delayPrint("""
-# Professor Oak:
-# There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
-# It can be hard to go through the first few steps so here take this use these items well..
-# """)
+input()
+delayPrint("""
+Professor Oak:
+There are items you can find or buy at the shop to make bigger steps towards the end or to heal your Pokemon.
+It can be hard to go through the first few steps so here take this use these items well..
+""")
 
-# input()
-# pygame.mixer.music.pause()
-# playSound("obtain_item")
-# print("Professor Oak gave you 5 coins")
-# input(), print("Professor Oak gave you a healing potion")
-# playSound("obtain_item")
-# time.sleep(3)
-# pygame.mixer.music.unpause()
-# input()
-# delayPrint("""
-# Professor Oak:
-# Alright then... I'll see you at the end..""")
-# input()
+input()
+pygame.mixer.music.pause()
+playSound("obtain_item")
+print("Professor Oak gave you 5 coins")
+input(), print("Professor Oak gave you a healing potion")
+playSound("obtain_item")
+time.sleep(3)
+pygame.mixer.music.unpause()
+input()
+delayPrint("""2
+Professor Oak:
+Alright then... I'll see you at the end..""")
+input()
 
 pygame.mixer.music.load("./music/adventure_theme.mp3")
 pygame.mixer.music.play(loops= -1)
 # Dit hieronder veranderen naar een function die de level ophaalt en dan weet wat de max hp is
 # MAX_HP = gethealth()
 current_position = 1
+checkpoints = [1, 10, 20, 30, 40]
+last_checkpoint = 1
 current_hp = myPokemon.health
 
 os.system("cls")
 while current_position < 50:
+    if current_position <= 9:
+        last_checkpoint = 1
+    elif current_position <= 19:
+        last_checkpoint = 10
+    elif current_position <= 29:
+        last_checkpoint = 20
+    elif current_position <= 39:
+        last_checkpoint = 30
+    elif current_position <= 49:
+        last_checkpoint = 40
+    if current_position in checkpoints:
+        #1 current_hp = MAX_HP
+        print(f"You have returned to checkpoint {current_position}. Your health has been fully regenerated.")
+    print(f"You have returned to checkpoint {current_position}.")
     os.system('cls')
     print(f"You are at position {current_position} with {myPokemon.health} HP.")
     print("1. View inventory\n2. Roll")
@@ -283,10 +306,8 @@ while current_position < 50:
         print(f"You rolled {dice_roll}.")
         time.sleep(1)
         current_position += dice_roll
-        if current_position > 10:
-            current_position = 10
-        elif previous_position < 7 <= current_position:
-            # current_hp = MAX_HP
+        if current_position > 50:
+            current_position = 50
             print("You have passed or you are at a checkpoint. Your health has regenerated.")
     elif option == 3:
         current_position += 3
@@ -301,4 +322,3 @@ while current_position < 50:
         print("Your HP has been fully regenerated.")
 
 print(f"Congratulations! You are an official Pokémon Champion.")
-
